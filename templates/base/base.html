@@ -1,0 +1,413 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal MatchMaker</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link rel="icon" href="images/fav.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom-select.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/toggle.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status">
+        <img src="{% static 'images/loader.gif' %}" id="preloader_image" alt="loader" />
+      </div>
+    </div>
+    <a href="javascript:;" id="return-to-top" class="change-bg2"><i class="fas fa-angle-double-up"></i></a>
+    <div class="main-header-wrapper1">
+      <div class="right-sidebar" id="right-sidebar">
+        <div class="toggle-top-header">
+          <button class="sidebar-close"></button>
+        </div>
+      </div>
+      <div class="cart-details" id="cart-sidebar">
+        <div class="toggle-top-header">
+          <button class="cart-close"></button> 
+        <h3>Liked Recipes</h3>
+        </div>
+        <div class="toggle-content">
+            <div class="food-inner-page-content-wrapper">
+                <div class="container custom-container">
+                   <div class="inner-page-content" style="display: block;">
+                        {% for fav in data %}
+                        <br>
+                         <div class="row">
+                            <div class="col-4"><img src="{{fav.recipe_image}}" style="width:150px;height: 150px;"></div>
+                            <div class="col-8"><b>{{fav.recipe_name}}</b>
+                                <div class="row">
+                                <div class="col-6">
+                                    <a href="/recipe/{{fav.recipe_id}}/"><button class="btn btn-o btn-sm btn-rnd btn-coral">Visit</button></a>
+                                </div>
+                                <div class="col-6" style="z-index: 9999;">
+                                <h2><a href="/fav/delete/likes/?recipe_id={{fav.recipe_id}}"><i class="fa fa-heart"></i></a></h2>
+                                </div>
+                            </div>
+                            </div>
+                         </div>
+                         <br>
+                         {% endfor %}
+                   </div>
+                </div>
+             </div>
+        </div>
+      </div>
+      <div class="sb-main-header1">
+        <div class="menu-items-wrapper menu-item-wrapper3 d-xl-block d-lg-block d-md-none d-sm-none d-none">
+          <div class="ps_header_bottom">
+            <div class="row">
+              <div class="col-lg-8 col-md-6 col-12">
+                <div class="left-header-side">
+                  <a href="/" class="main-logo"><img src="{% static 'images/logo.png' %}" alt="Logo" /></a>
+                  <div class="input-box">
+                    <form method="GET" action="/recipe/list/">
+                      <input type="text" name="ingredients" placeholder="Search by Ingredients" value="{% if ingredients != '' %}{{ingredients}}{% endif %}" />
+                      <button type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-12">
+                <div class="right-logo">
+                  <ul>
+                    <li class="line">
+                      <a href="/recipe/recommended/">Recommended Recipes</a>
+                    </li>
+                    {% if not request.user.is_authenticated %}
+                    <li class="signup">
+                      <a href="/accounts/login/">Login</a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <a href="javascript:;" class="cart-toggle">
+                          <span>
+                              <i class="fa fa-heart-o"></i>
+                          </span>
+                          <small>{{count}}</small>
+                        </a>
+                        &nbsp;
+                      </li>
+
+                      <li>
+                        &nbsp;&nbsp;
+                        <a href="/accounts/logout/">
+                          <span>
+                              <i class="fa fa-power-off"></i> Logout
+                          </span>
+                        </a>
+                      </li>
+                      {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-menu-wrapper d-xl-none d-lg-none d-md-block d-sm-block">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-6">
+                <div class="mobil-left-side">
+                  <div class="toggle-main-wrapper" id="sidebar-toggle">
+                    <span>
+                      <svg width="32" height="29" viewbox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect y="12" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect y="24" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect x="14" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect x="14" y="12" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect x="14" y="24" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect x="27" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect x="27" y="12" width="5" height="5" rx="2.5" fill="#111111" />
+                        <rect x="27" y="24" width="5" height="5" rx="2.5" fill="#111111" />
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="mobile-logo">
+                    <a href><img src="images/logo.png" alt="logo" /></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 col-sm-8 col-6">
+                <div class="d-flex justify-content-end">
+                  <div class="right-logo">
+                    <ul>
+                      <li class="search-btn">
+                        <span>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                          </svg>
+                        </span>
+                        <div class="search-open">
+                          <input type="text" class="form-control" placeholder="Search" />
+                          <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                      </li>
+                      <li class="signup">
+                        <a href="javascript:;">Sign Up</a>
+                      </li>
+                      <li>
+                        <a href="javascript:;">
+                          <span>
+                            <i class="fa fa-heart-o"></i>
+                          </span>
+                          <small>{{count}}</small>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="sidebar">
+          <div class="sidebar_logo"></div>
+          <div id="toggle_close">&times;</div>
+          <div id="cssmenu">
+            <ul class="float_left">
+              <li class="has-sub">
+                <a href="index.html">Home</a>
+              </li>
+              <li class="has-sub">
+                <a href="about-us.html">About us</a>
+              </li>
+              <li class="has-sub">
+                <a href="jacascript:;">Pages</a>
+                <ul>
+                  <li>
+                    <a href="gallery-4-grid.html">Gallery 4 Grid</a>
+                  </li>
+                  <li>
+                    <a href="contact-us.html">Contact Us</a>
+                  </li>
+                  <li>
+                    <a href="faq.html">Faq</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub">
+                <a href="jacascript:;">Chef</a>
+                <ul>
+                  <li>
+                    <a href="chef-listing.html">Chef Listing</a>
+                  </li>
+                  <li>
+                    <a href="chef-details.html">Chef Details</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub">
+                <a href="jacascript:;">Blog</a>
+                <ul>
+                  <li>
+                    <a href="blog-single.html">Blog Single</a>
+                  </li>
+                  <li>
+                    <a href="blog-with-sidebar.html">Blog Withsidebar</a>
+                  </li>
+                  <li>
+                    <a href="blog-without-sidebar.html">Blog Withoutsidebar</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub">
+                <a href="jacascript:;">Shop</a>
+                <ul>
+                  <li>
+                    <a href="shop.html">Shop</a>
+                  </li>
+                  <li>
+                    <a href="shop-single.html">Shop Single</a>
+                  </li>
+                  <li>
+                    <a href="cart.html">Cart</a>
+                  </li>
+                  <li>
+                    <a href="checkout.html">Checkout</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub">
+                <a href="jacascript:;">Shortcodes</a>
+                <ul>
+                  <li>
+                    <a href="sho_accordion.html">Accordion</a>
+                  </li>
+                  <li>
+                    <a href="sho_alert.html">Alert</a>
+                  </li>
+                  <li>
+                    <a href="sho_button.html">Button</a>
+                  </li>
+                  <li>
+                    <a href="sho_client.html">Client</a>
+                  </li>
+                  <li>
+                    <a href="sho_counter.html">Counter</a>
+                  </li>
+                  <li>
+                    <a href="sho_form.html">Form</a>
+                  </li>
+                  <li>
+                    <a href="sho_icon.html">Icon</a>
+                  </li>
+                  <li>
+                    <a href="sho_list.html">List</a>
+                  </li>
+                  <li>
+                    <a href="sho_portfolio.html">Portfolio</a>
+                  </li>
+                  <li>
+                    <a href="sho_pricing-table.html">Pricing Table</a>
+                  </li>
+                  <li>
+                    <a href="sho_social-icon.html">Social Icon</a>
+                  </li>
+                  <li>
+                    <a href="sho_tab.html">Tab</a>
+                  </li>
+                  <li>
+                    <a href="sho_team.html">Team</a>
+                  </li>
+                  <li>
+                    <a href="sho_testimonials.html">Testimonials</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub">
+                <a href="jacascript:;">Recipe</a>
+                <ul>
+                  <li>
+                    <a href="recipe.html">Recipe</a>
+                  </li>
+                  <li>
+                    <a href="recipe-single.html">Recipe Single</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="has-sub">
+                <a href="contact-us.html">Contact-us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block content %}
+
+    {% endblock %}
+    <div class="bottom-footer">
+      <div class="container custom-container">
+        <div class="bottom-footer-wrapper">
+          <div class="fotter-left">
+            <span>Copyright © 2023 Meal MatchMaker. | All rights reserved.</span>
+          </div>
+          <div class="fotter-right">
+            <ul>
+              <li>
+                <a href="contact-us.html">Contact us</a>
+              </li>
+              <li>
+                <a href="javascript:;">Licensing terms</a>
+              </li>
+              <li>
+                <a href="javascript:;">Terms of use</a>
+              </li>
+              <li>
+                <a href="javascript:;">Privacy Policy</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <!-- <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script> -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/wow.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <script>
+      $(document).ready(function () {
+        $('.sidebar-toggle , .sidebar-close').click(function () {
+          $('#right-sidebar').toggleClass('open')
+        })
+      })
+    </script>
+    <script>
+      $(document).ready(function () {
+        $('.cart-toggle , .cart-close').click(function () {
+          $('#cart-sidebar').toggleClass('open')
+        })
+      })
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(document).on('click', '.add-favs', function(event){
+            event.preventDefault();
+            var pk = $(this).attr('id');
+            if("{{request.user.is_authenticated}}" == "True"){
+            $.ajax({
+              type: 'POST',
+              url: '{% url "likes" %}',
+              data: {
+                    'recipe_id': pk,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response){
+                      $('#'+response['rep_id']).html(response['like'])
+                    },
+                    error: function(rs, e){
+                      console.log(rs.responseText);
+                    },
+                  });
+                }
+                else{
+                    alert("Please Login")
+                }  
+             });
+        });
+
+        $('.search-btn').click(function () {
+          $('.search-open').slideToggle()
+        })
+        $('body').on('click', function (e) {
+          if (!$('.search-btn').is(e.target) && $('.search-btn').has(e.target).length === 0 && $('.open').has(e.target).length === 0) {
+            $('.search-open').slideUp()
+          }
+        })
+      })
+    </script>
+    <script>
+      new WOW().init()
+    </script>
+    <script>
+      $(window).scroll(function () {
+        var scroll = $(window).scrollTop()
+        if (scroll <= 500) {
+          $('.left-today').removeClass('sticky').addClass('sticky')
+        }
+      })
+    </script>
+    {% block javascript %}
+
+    {% endblock %}
+  </body>
+</html>

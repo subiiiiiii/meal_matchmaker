@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Matchmaker</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+<link rel="icon" href="images/fav.png" type="image/x-icon" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/animate.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/custom-select.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/filter.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}" />
+</head>
+<body>
+
+<div id="preloader">
+<div id="status">
+<img src="{% static 'images/loader.gif' %}" id="preloader_image" alt="loader">
+</div>
+</div>
+
+<div class="food-login-main-wrapper">
+<div class="login-img">
+ <a href="index.html"> <img src="{% static 'images/logo-login.png' %}" alt="logo"> </a>
+</div>
+<div class="login-form-box">
+<div class="login-form-wrapper">
+<div class="login-tabs">
+<ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="descrip-tab" data-bs-toggle="tab" data-bs-target="#descrip-tab-pane" type="button" role="tab" aria-controls="descrip-tab-pane" aria-selected="true"> Login </button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review-tab-pane" type="button" role="tab" aria-controls="review-tab-pane" aria-selected="false"> Signup </button>
+</li>
+</ul>
+
+<div class="tab-content" id="myTabContent">
+<div class="tab-pane fade active show" id="descrip-tab-pane" role="tabpanel" aria-labelledby="descrip-tab" tabindex="0">
+<form action="/accounts/login/" method="POST">
+   {% csrf_token %}
+
+<div class="form-group row">
+<div class="col-md-12 col-12">
+<label>
+Email or Username
+</label>
+<input type="text" class="form-control require" required placeholder="Email Address or Username" name="login">
+</div>
+</div>
+<div class="form-group row">
+<div class="col-md-12 col-12">
+<label>
+Password
+</label>
+<input type="password" class="form-control require" required placeholder="Password" id="passInput1" name="password">
+<span class="input-group-addon" role="button" title="veiw password" id="passBtn1" >
+<i class="fa fa-eye fa-fw" aria-hidden="true"></i>
+</span>
+</div>
+</div>
+<div class="form-group row">
+<div class="col-lg-6 col-md-6  col-sm-6 col-6">
+<div class="inner-form-box">
+<input type="checkbox" id="check" name="check" value="check" class="remember-input">
+<label for="check"> Remember Me </label>
+</div>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+<div class="forget-link-box">
+<a href="javascript:;"></a>
+</div>
+</div>
+</div>
+<button type="submit" class="submitForm custom-btn">Login</button>
+
+</form>
+</div>
+<div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
+<form action="/accounts/signup/" method="POST">
+   {% csrf_token %}
+<div class="form-group row">
+<div class="col-md-12 col-12">
+<label>
+User Name
+</label>
+<input type="text" class="form-control require" required placeholder="Username" name="username">
+</div>
+</div>
+<div class="form-group row">
+<div class="col-md-12 col-12">
+<label>
+Email or User Name
+</label>
+<input type="email" class="form-control require" required placeholder="Email Address or Username" name="email">
+</div>
+</div>
+<div class="form-group row">
+<div class="col-md-12 col-12">
+<label>
+Password
+</label>
+<input type="password" class="form-control require" required placeholder="Password" id="passInput2" name="password1">
+<span class="input-group-addon" role="button" title="veiw password" id="passBtn2">
+<i class="fa fa-eye fa-fw" aria-hidden="true"></i>
+</span>
+</div>
+</div>
+<div class="form-group row">
+<div class="col-md-12 col-12">
+<label>
+Password
+</label>
+<input type="password" class="form-control require" required placeholder="Password" id="passInput3" name="password2">
+<span class="input-group-addon" role="button" title="veiw password" id="passBtn3">
+<i class="fa fa-eye fa-fw" aria-hidden="true"></i>
+</span>
+</div>
+</div>
+<button type="submit" class="submitForm custom-btn">Sign up</button>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/wow.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/sticky.js' %}"></script>
+<script src="{% static 'js/filter.js' %}"></script>
+<script src="{% static 'js/contact_form.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+<script>
+               const PassBtn1 = document.querySelector('#passBtn1');
+      PassBtn1.addEventListener('click', () => {
+         const input = document.querySelector('#passInput1');
+         input.getAttribute('type') === 'password' ? input.setAttribute('type', 'text') : input.setAttribute('type', 'password');
+      }); 
+      </script>
+<script>
+               const PassBtn2 = document.querySelector('#passBtn2');
+      PassBtn2.addEventListener('click', () => {
+         const input = document.querySelector('#passInput2');
+         input.getAttribute('type') === 'password' ? input.setAttribute('type', 'text') : input.setAttribute('type', 'password');
+      }); 
+</script>
+<script>
+               const PassBtn3 = document.querySelector('#passBtn3');
+      PassBtn3.addEventListener('click', () => {
+         const input = document.querySelector('#passInput3');
+         input.getAttribute('type') === 'password' ? input.setAttribute('type', 'text') : input.setAttribute('type', 'password');
+      }); 
+</script>
+</body>
+</html>

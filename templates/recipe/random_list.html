@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<div class="food-inner-page-content-wrapper">
+    <div class="container custom-container">
+        <div class="inner-page-content">
+            <div class="product-panel-wrapper">
+                <div class="right-today">
+                    <div class="menu-tabs-wrapper">
+                        <div class="menu-name">
+                            <h3>Random Recipes:</h3>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade active show" id="home-tab-pane" role="tabpanel"
+                            aria-labelledby="home-tab" tabindex="0">
+                            <div class="custom-inner-tab-main-wrapper">
+                                {% for rep in recipes_list %}
+                                <div class="food-product-main-wrapper">
+                                    <div class="product-img">
+                                        <img src="{{rep.sourceUrl}}" alt="img">
+                                    </div>
+                                    <div class="product-text mt-2">
+                                        <div class="product-rate">
+                                            <h3> <a href="#">{{rep.title}}</a> </h3>
+                                        </div>
+                                        <div class="btn-sec">
+                                            <a href="/recipe/{{rep.id}}/" class="custom-btn">View</a> &nbsp; 
+                                            <div id="{{rep.id}}" class="add-fav">
+                                                {% if rep.id in user_favorites %}
+                                                    <a href="#"><i class="fa fa-heart fa-2x" aria-hidden="true"></i></a>
+                                                {% else %}
+                                                <a href="#"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <!--  -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+    $(document).ready(function(){
+  $(document).on('click', '.add-fav', function(event){
+    event.preventDefault();
+    var pk = $(this).attr('id');
+    if("{{request.user.is_authenticated}}" == "True"){
+    $.ajax({
+      type: 'POST',
+      url: '{% url "likes" %}',
+      data: {
+            'recipe_id': pk,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response){
+              $('#'+response['rep_id']).html(response['like'])
+            },
+            error: function(rs, e){
+              console.log(rs.responseText);
+            },
+          });
+        }
+        else{
+            alert("Please Login")
+        }  
+     });
+})
+</script>
+{% endblock javascript %}

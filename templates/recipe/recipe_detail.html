@@ -1,0 +1,209 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .badge {
+        box-sizing: border-box;
+        display: inline-block;
+        background-color: #EC412B;
+        color: #ffffff;
+        
+        border-radius: 3rem;
+        text-align: center;
+        line-height: inherit;
+    }
+    
+    // Style
+    .badge--line {
+        background-color: transparent;
+        color: #95a5a6;
+        box-shadow: 0 0 0 1px #95a5a6;
+    }
+    
+    .badge--info {
+        background-color: #3498db;
+        
+    }
+
+    .badge--small {
+        font-size: 0.9rem;
+        padding: .1rem .65rem .2rem;
+    }
+
+    
+</style>
+<div class="food-inner-page-content-wrapper">
+    <div class="container custom-container">
+       <div class="inner-page-content">
+          <div class="product-panel-wrapper">
+             <img src="{{recipes.image}}" alt="img">
+
+             <div class="recipe-text">
+                <div class="title-sec">
+                   <h2 class="title-heading">{{recipes.title}}</h2>
+                </div>
+                <p>
+                  {% for d in description %}
+                    {{d|safe}}
+                    {% endfor %}
+                </p>
+
+            </div>
+            
+             <!--  -->
+             <div class="food-recipe-category-wrapper">
+                <h5> <span><svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1606 2.02495C9.82778 1.6921 9.28831 1.6919 8.95401 2.02619L2.12684 8.85337C1.7933 9.18691 1.79381 9.72821 2.1256 10.06L2.92897 10.8634C3.26183 11.1962 3.8013 11.1964 4.1356 10.8621L10.9628 4.03495C11.2963 3.70141 11.2958 3.16011 10.964 2.82833L10.1606 2.02495Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 17.6618L5.09565 9.90291L9.97829 5.02026L17.7568 10.9779C16.2266 11.4342 14.7846 12.2666 13.5762 13.4749C12.3662 14.6849 11.5332 16.1292 11.0774 17.6618Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                   <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5754 13.4749C17.4583 9.59201 23.7538 9.59201 27.6367 13.4749L13.5754 27.5363C9.69247 23.6533 9.69247 17.3579 13.5754 13.4749Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                   <path d="M20.6065 20.7063L29.2441 29.344" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                   </svg>
+                   </span>Steps for recipe</h5>
+                <div class="recipe-category">
+                   <ul>
+                        {% for instruction in recipes.analyzedInstructions %}
+                            {% for step in instruction.steps %}
+                                <li><label class="badge badge--small">{{step.number}}</label> {{step.step}}</li>
+                            {% endfor %}
+                        {% endfor %}
+                   </ul>
+                </div>
+             </div>
+             {% comment %} <div class="feature-recipe-wrapper">
+                <div class="title-sec">
+                   <h2 class="title-heading">Featured Recipe</h2>
+                </div>
+                <div class="recipe-blog-main-wrapper">
+                   <div class="blog-recipe">
+                      <div class="blog-img">
+                         <img src="images/blog1.png" alt="img">
+                      </div>
+                      <h5> <span><svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1606 2.02495C9.82778 1.6921 9.28831 1.6919 8.95401 2.02619L2.12684 8.85337C1.7933 9.18691 1.79381 9.72821 2.1256 10.06L2.92897 10.8634C3.26183 11.1962 3.8013 11.1964 4.1356 10.8621L10.9628 4.03495C11.2963 3.70141 11.2958 3.16011 10.964 2.82833L10.1606 2.02495Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 17.6618L5.09565 9.90291L9.97829 5.02026L17.7568 10.9779C16.2266 11.4342 14.7846 12.2666 13.5762 13.4749C12.3662 14.6849 11.5332 16.1292 11.0774 17.6618Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5754 13.4749C17.4583 9.59201 23.7538 9.59201 27.6367 13.4749L13.5754 27.5363C9.69247 23.6533 9.69247 17.3579 13.5754 13.4749Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         <path d="M20.6065 20.7063L29.2441 29.344" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         </svg>
+                         </span> What You Need
+                      </h5>
+                      <ul>
+                         <li> <span></span></li>
+                         <li> <span></span> </li>
+                         <li> <span></span> </li>
+                         <li> <span></span> </li>
+                         <li> <span></span> </li>
+                      </ul>
+                      <a href="recipe.html" class="custom-btn">Read More</a>
+                   </div>
+                   <div class="blog-recipe">
+                      <div class="blog-img">
+                         <img src="images/blog-2.png" alt="img">
+                      </div>
+                      <h5> <span><svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1606 2.02495C9.82778 1.6921 9.28831 1.6919 8.95401 2.02619L2.12684 8.85337C1.7933 9.18691 1.79381 9.72821 2.1256 10.06L2.92897 10.8634C3.26183 11.1962 3.8013 11.1964 4.1356 10.8621L10.9628 4.03495C11.2963 3.70141 11.2958 3.16011 10.964 2.82833L10.1606 2.02495Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 17.6618L5.09565 9.90291L9.97829 5.02026L17.7568 10.9779C16.2266 11.4342 14.7846 12.2666 13.5762 13.4749C12.3662 14.6849 11.5332 16.1292 11.0774 17.6618Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         <path fill-rule="evenodd" clip-rule="evenodd" d="M13.5754 13.4749C17.4583 9.59201 23.7538 9.59201 27.6367 13.4749L13.5754 27.5363C9.69247 23.6533 9.69247 17.3579 13.5754 13.4749Z" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         <path d="M20.6065 20.7063L29.2441 29.344" stroke="#EB0029" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                         </svg>
+                         </span> What You Need
+                      </h5>
+                      <ul>
+                         <li> <span></span> 800 gms, sev</li>
+                         <li> <span></span> 2 medium Tomato, crushed </li>
+                         <li> <span></span> 4 medium Onions</li>
+                         <li> <span></span> 5-6 green chilli</li>
+                         <li> <span></span> 1 teaspoon Coriander Seeds, roasted</li>
+                      </ul>
+                      <a href="recipe.html" class="custom-btn">Read More</a>
+                   </div>
+                </div>
+             </div> {% endcomment %}
+          </div>
+          
+          <div class="side-panel-box-wrapper">
+             <div class="side-panel-wrapper">
+                <div class="side-bar-strip">
+                    <div class="title-sec">
+                       <h2 class="title-heading">Ingredients</h2>
+                    </div>
+                    <ul>
+                     {% for ing in recipes.extendedIngredients %}
+                         <li>
+                             <div class="row">
+                             <div class="col-3">
+                                 <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ing.image}}" style="width: 50px;height: 50px;">
+                             </div>
+                             <div class="col-9">
+                                 {{ing.original |capfirst}}
+                             </div>
+                             </div>
+                         </li>
+                     {% endfor %}
+                    </ul>
+                 </div>
+                 <div class="side-bar-strip">
+                    <div class="title-sec">
+                       <h2 class="title-heading">Dish Type</h2>
+                    </div>
+                    <ul>
+                     {% for ing in recipes.dishTypes %}
+                         <li>
+                            <a href="#"> <span></span> {{ing | capfirst}}</a>
+                         </li>
+                     {% endfor %}
+                    </ul>
+                 </div>
+
+             </div>
+          </div>
+          
+       </div>
+       <div class="food-service-main-wrapper">
+        <div class="service">
+           <img src="{% static 'images/cook.png' %}" alt="img" style="width: 100px; height: 100px;">
+           <a href="javascript:;">Cook Time</a>
+           <small>{{recipes.readyInMinutes}} min(s)</small>
+        </div>
+        <div class="service">
+           <img src="{% static 'images/serving.png' %}" alt="img" style="width: 100px; height: 100px;">
+           <a href="javascript:;">Servings</a>
+           <small>{{recipes.servings}}</small>
+        </div>
+        <div class="service">
+            <img src="{% static 'images/calorie.png' %}" alt="img" style="width: 100px; height: 100px;">
+            <a href="javascript:;">Calories</a>
+            <small>{{calorie}}</small>
+         </div>
+     </div>
+     <div class="food-service-main-wrapper">
+        <div class="service">
+            {% if recipes.vegetarian %}
+            <img src="{% static 'images/vegetarian.png' %}" alt="img" style="width: 100px; height: 100px;">
+            {% else %}
+           <img src="{% static 'images/nonvegetarian.png' %}" alt="img" style="width: 100px; height: 100px;">
+{% endif %}
+        </div>
+        {% if recipes.vegan %}
+        <div class="service">
+           <img src="{% static 'images/vegan.png' %}" alt="img" style="width: 100px; height: 100px;">
+        </div>
+        {% endif %}
+        <div class="service">
+            {% if recipes.dairyFree %}
+                <img src="{% static 'images/dairy-free.png' %}" alt="img" style="width: 100px; height: 100px;">
+            {% else %}
+                <img src="{% static 'images/dairy-products.png' %}" alt="img" style="width: 100px; height: 100px;">
+                {% endif %}
+         </div>
+         <div class="service">
+            {% if recipes.glutenFree %}
+                <img src="{% static 'images/glutenfree.png' %}" alt="img" style="width: 100px; height: 100px;">
+            {% else %}
+                <img src="{% static 'images/gluten.png' %}" alt="img" style="width: 100px; height: 100px;">
+                {% endif %}
+         </div>
+     </div>
+    </div>
+ </div>
+ <br>
+{% endblock %}
